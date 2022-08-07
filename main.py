@@ -5,12 +5,12 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.utils.executor import start_webhook
 import os
 import logging
-from config import token
+# from config import token
 from keyboards import choice_project, url_aviso, url_seofast, url_profitcentr, url_seotime, url_wmrfast, url_info, \
     cell_aviso, cell_seofast, cell_profitcentr, cell_seotime, cell_wmrfast
 
 TOKEN = os.getenv('BOT_TOKEN')
-bot = Bot(token=token)
+bot = Bot(token=TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
