@@ -2,16 +2,37 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram.utils import executor
-
+from aiogram.utils.executor import start_webhook
+import os
+import logging
 from config import token
 from keyboards import choice_project, url_aviso, url_seofast, url_profitcentr, url_seotime, url_wmrfast, url_info, \
     cell_aviso, cell_seofast, cell_profitcentr, cell_seotime, cell_wmrfast
 
+TOKEN = os.getenv('BOT_TOKEN')
 bot = Bot(token=token)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
+
+HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME')
+
+# webhook settings
+WEBHOOK_HOST = f'https://{HEROKU_APP_NAME}.herokuapp.com'
+WEBHOOK_PATH = f'/webhook/{TOKEN}'
+WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
+
+# webserver settings
+WEBAPP_HOST = '0.0.0.0'
+WEBAPP_PORT = os.getenv('PORT', default=8000)
+
+
+async def on_startup(dispatcher):
+    await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
+
+
+async def on_shutdown(dispatcher):
+    await bot.delete_webhook()
 """-----------------------------------------------Storage------------------------------------------------------------"""
 
 
@@ -449,5 +470,14 @@ async def send_login_wmrfast(message: types.Message, state: FSMContext):
 
 
 """-----------------------------------------Запуск программы---------------------------------------------------------"""
-if __name__ == "__main__":
-    executor.start_polling(dp)
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    start_webhook(
+        dispatcher=dp,
+        webhook_path=WEBHOOK_PATH,
+        skip_updates=False,
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        host=WEBAPP_HOST,
+        port=WEBAPP_PORT,
+    )
