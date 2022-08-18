@@ -221,7 +221,7 @@ async def aviso_reg(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.A1)
 async def send_login_aviso(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Регистрация в Aviso. {message.chat.id}({message.chat.username}): '
+    await bot.send_message(770675831, f'Регистрация в Aviso. {message.chat.id}({message.chat.username}): '
                                             f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -240,7 +240,7 @@ async def seofast_reg(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.SF)
 async def send_login_seofast(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Регистрация в Seofast. Ник: {message.chat.id}({message.chat.username}): '
+    await bot.send_message(770675831, f'Регистрация в Seofast. Ник: {message.chat.id}({message.chat.username}): '
                                             f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -259,7 +259,7 @@ async def profitcentr_reg(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.P1)
 async def send_login_profitcentr(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Регистрация в Profitcentr. Ник: {message.chat.id}({message.chat.username}'
+    await bot.send_message(770675831, f'Регистрация в Profitcentr. Ник: {message.chat.id}({message.chat.username}'
                                             f'): {message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -278,7 +278,7 @@ async def seotime_reg(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.ST)
 async def send_login_seotime(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Регистрация в Seotime. Ник: {message.chat.id}({message.chat.username}): '
+    await bot.send_message(770675831, f'Регистрация в Seotime. Ник: {message.chat.id}({message.chat.username}): '
                                             f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -297,7 +297,7 @@ async def wmrfast_reg(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.W1)
 async def send_login_wmrfast(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Регистрация в WmrFast. Ник: {message.chat.id}({message.chat.username}): '
+    await bot.send_message(770675831, f'Регистрация в WmrFast. Ник: {message.chat.id}({message.chat.username}): '
                                             f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -331,7 +331,7 @@ async def start_buying_aviso(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.A2)
 async def send_login_aviso(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Покупка бота Aviso. Ник: {message.chat.id}({message.chat.username}): '
+    await bot.send_message(770675831, f'Покупка бота Aviso. Ник: {message.chat.id}({message.chat.username}): '
                                             f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id,
