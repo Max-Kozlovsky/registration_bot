@@ -480,12 +480,15 @@ async def bot_answer(message: types.Message):
         await bot.send_message(message.chat.id, "Введите ID пользователя")
         await BackCall.ANSWER.set()
     else:
-        await bot.send_message(message.chat.id, 'У вас нет прав для этого действия')
+        await bot.send_message(message.chat.id, 'У вас нет прав для этого действия', reply_markup=choice_project)
 
 
 @dp.message_handler(state=BackCall.ANSWER)
 async def answer_message(message: types.Message, state: FSMContext):
     await bot.send_message(f'{message.text}', 'Проблемы с вашим заказом. Для уточнения свяжитесь с @Max88K')
+    await state.finish()
+    await bot.send_message(message.chat.id,
+                           'Сообщение успешно отправлено', reply_markup=choice_project)
 
 
 """-----------------------------------------Запуск программы---------------------------------------------------------"""
