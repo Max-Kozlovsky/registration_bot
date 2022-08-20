@@ -14,7 +14,6 @@ bot = Bot(token=TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
-
 HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME')
 
 # webhook settings
@@ -33,6 +32,8 @@ async def on_startup(dispatcher):
 
 async def on_shutdown(dispatcher):
     await bot.delete_webhook()
+
+
 """-----------------------------------------------Storage------------------------------------------------------------"""
 
 
@@ -48,6 +49,7 @@ class BackCall(StatesGroup):
     P2 = State()  # запрос покупки Profitcentr
     ST2 = State()  # запрос покупки Seotime
     W2 = State()  # запрос покупки Wmrfast
+    ANSWER = State()
 
 
 """----------------------------------------Приветствие и информация--------------------------------------------------"""
@@ -222,7 +224,7 @@ async def aviso_reg(call: types.CallbackQuery):
 @dp.message_handler(state=BackCall.A1)
 async def send_login_aviso(message: types.Message, state: FSMContext):
     await bot.send_message(770675831, f'Регистрация в Aviso. {message.chat.id}({message.chat.username}): '
-                                            f'{message.text}')
+                                      f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
                                             'постараюсь не затаягивать\n Хочешь заказать еще одного бота?',
@@ -241,7 +243,7 @@ async def seofast_reg(call: types.CallbackQuery):
 @dp.message_handler(state=BackCall.SF)
 async def send_login_seofast(message: types.Message, state: FSMContext):
     await bot.send_message(770675831, f'Регистрация в Seofast. Ник: {message.chat.id}({message.chat.username}): '
-                                            f'{message.text}')
+                                      f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
                                             'постараюсь не затаягивать\n Хочешь заказать еще одного бота?',
@@ -260,7 +262,7 @@ async def profitcentr_reg(call: types.CallbackQuery):
 @dp.message_handler(state=BackCall.P1)
 async def send_login_profitcentr(message: types.Message, state: FSMContext):
     await bot.send_message(770675831, f'Регистрация в Profitcentr. Ник: {message.chat.id}({message.chat.username}'
-                                            f'): {message.text}')
+                                      f'): {message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
                                             'постараюсь не затаягивать\n Хочешь заказать еще одного бота?',
@@ -279,7 +281,7 @@ async def seotime_reg(call: types.CallbackQuery):
 @dp.message_handler(state=BackCall.ST)
 async def send_login_seotime(message: types.Message, state: FSMContext):
     await bot.send_message(770675831, f'Регистрация в Seotime. Ник: {message.chat.id}({message.chat.username}): '
-                                            f'{message.text}')
+                                      f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
                                             'постараюсь не затаягивать\n Хочешь заказать еще одного бота?',
@@ -298,7 +300,7 @@ async def wmrfast_reg(call: types.CallbackQuery):
 @dp.message_handler(state=BackCall.W1)
 async def send_login_wmrfast(message: types.Message, state: FSMContext):
     await bot.send_message(770675831, f'Регистрация в WmrFast. Ник: {message.chat.id}({message.chat.username}): '
-                                            f'{message.text}')
+                                      f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id, 'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
                                             'постараюсь не затаягивать\n Хочешь заказать еще одного бота?',
@@ -332,7 +334,7 @@ async def start_buying_aviso(call: types.CallbackQuery):
 @dp.message_handler(state=BackCall.A2)
 async def send_login_aviso(message: types.Message, state: FSMContext):
     await bot.send_message(770675831, f'Покупка бота Aviso. Ник: {message.chat.id}({message.chat.username}): '
-                                            f'{message.text}')
+                                      f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id,
                            'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -363,8 +365,8 @@ async def start_buying_seofast(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.SF2)
 async def send_login_seofast(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Покупка бота Seofast. {message.chat.id}({message.chat.username}) Ник: '
-                                            f'{message.text}')
+    await bot.send_message(770675831, f'Покупка бота Seofast. {message.chat.id}({message.chat.username}) Ник: '
+                                      f'{message.text}')
     await state.finish()
     await bot.send_message(message.chat.id,
                            'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -396,8 +398,8 @@ async def start_buying_profitcentr(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.P2)
 async def send_login_profitcentr(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Покупка бота Profitcentr. {message.chat.id}({message.chat.username}) Ник:'
-                                            f' {message.text}')
+    await bot.send_message(770675831, f'Покупка бота Profitcentr. {message.chat.id}({message.chat.username}) Ник:'
+                                      f' {message.text}')
     await state.finish()
     await bot.send_message(message.chat.id,
                            'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -428,8 +430,8 @@ async def start_buying_seotime(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.ST2)
 async def send_login_seotime(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Покупка бота Seotime. {message.chat.id}({message.chat.username}) Ник:'
-                                            f' {message.text}')
+    await bot.send_message(770675831, f'Покупка бота Seotime. {message.chat.id}({message.chat.username}) Ник:'
+                                      f' {message.text}')
     await state.finish()
     await bot.send_message(message.chat.id,
                            'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
@@ -460,13 +462,30 @@ async def start_buying_wmrfast(call: types.CallbackQuery):
 
 @dp.message_handler(state=BackCall.W2)
 async def send_login_wmrfast(message: types.Message, state: FSMContext):
-    await bot.send_message(message.chat.id, f'Покупка бота Wmrfast. {message.chat.id}({message.chat.username}) Ник:'
-                                            f' {message.text}')
+    await bot.send_message(770675831, f'Покупка бота Wmrfast. {message.chat.id}({message.chat.username}) Ник:'
+                                      f' {message.text}')
     await state.finish()
     await bot.send_message(message.chat.id,
                            'Данные получил, начинаю проверку. Ответ будет в течении 24 часов. Но я '
                            'постараюсь не затягивать\n Хочешь заказать еще одного бота?',
                            reply_markup=choice_project)
+
+
+"""--------------------------------------Ответ пользователю----------------------------------------------------------"""
+
+
+@dp.message_handler(commands='answer', state=None)
+async def bot_answer(message: types.Message):
+    if message.from_user.id == 770675831:
+        await bot.send_message(message.chat.id, "Введите ID пользователя")
+        await BackCall.ANSWER.set()
+    else:
+        await bot.send_message(message.chat.id, 'У вас нет прав для этого действия')
+
+
+@dp.message_handler(state=BackCall.ANSWER)
+async def answer_message(message: types.Message, state: FSMContext):
+    await bot.send_message(f'{message.text}', 'Проблемы с вашим заказом. Для уточнения свяжитесь с @Max88K')
 
 
 """-----------------------------------------Запуск программы---------------------------------------------------------"""
